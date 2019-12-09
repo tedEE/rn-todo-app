@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, FlatList} from 'react-native';
 
-import {Navbar} from './src/Navbar'
-import {AddTodo} from "./src/AddTodo";
-import {Todo} from "./src/Todo";
+import {Navbar} from './src/components/Navbar'
+import {AddTodo} from "./src/components/AddTodo";
+import {Todo} from "./src/components/Todo";
+import {MainScreen} from './src/screens/MainScreen'
+import {TodoScreen} from './src/screens/TodoScreen'
 
 export interface iTodo{
   id : string,
@@ -13,32 +15,40 @@ export interface iTodo{
 // let state = ['string']
 
 const App: React.FC = () => {
-  const [todos, setTodo] = useState([])
+	const [todos, setTodo] = useState<Array<iTodo>>([])
+	const [todoId, setTodoId] = useState(null)
+  
 
-  const addTodo = (title) => {
+  const addTodo = (title: string) => {
     setTodo((prev)=> [...prev, {
       id : Date.now().toString(),
       title
     }] )
   }
 
-  const remuveTodo = (id) => {
-    setTodo(prev => prev.filter(el => el.id !== id))
-  }
+  const remuveTodo = (id : string) => {
+		setTodo(prev => prev.filter(el => el.id !== id))
+	}
+	
+	// Создание функционала по переключению экранов
+	let content = (
+    <MainScreen
+      todos={todos}
+      addTodo={addTodo}
+      remuveTodo={remuveTodo}
+    ></MainScreen>
+	);
+	
+	if(todoId){
+		content = <TodoScreen/>
+	}
 
   return (
     <View >
       <Navbar title='Todo App' test='32'/>
       <View style={styles.container}>
-        <AddTodo key={Date.now()} onSubmit={addTodo} />
-      </View>
-      <FlatList
-        keyExtractor={item => item.id}
-        data={todos}
-        renderItem={({item})=>(
-          <Todo todo={item} onRemTodo={remuveTodo}/>
-        )}
-      />
+				{content}
+			</View>
     </View>
   )
 }

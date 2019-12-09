@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 import {View, StyleSheet, TextInput, Button, Alert} from "react-native"
-import {iTodo} from "../App";
+import {iTodo} from "../../App";
 
 
 interface iProps {
-  onSubmit : any
+  onSubmit(value : string): void
 }
 
 export const AddTodo: React.FC<iProps> = ({onSubmit}) => {
 
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState<string>('')
 
   function onInputHandler() {
     if (value.trim()){

@@ -1,10 +1,10 @@
 import React from 'react'
 import {View, Text, StyleSheet, TouchableOpacity} from "react-native";
-import {iTodo} from "../App";
+import {iTodo} from "../../App";
 
 interface iTodoProps {
   todo: iTodo
-  onRemTodo : any
+  onRemTodo(id : string): void
 }
 
 export const Todo: React.FC<iTodoProps> = ({todo, onRemTodo}) => {
