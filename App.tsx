@@ -15,8 +15,11 @@ export interface iTodo{
 // let state = ['string']
 
 const App: React.FC = () => {
-	const [todos, setTodo] = useState<Array<iTodo>>([])
-	const [todoId, setTodoId] = useState(null)
+	const [todos, setTodo] = useState<Array<iTodo>>([
+		{id : '1', title : 'Выучить React Native'},
+		{id : '2', title : 'Написать мобильное приложение'},
+	])
+	const [todoId, setTodoId] = useState('2')
   
 
   const addTodo = (title: string) => {
@@ -24,7 +27,7 @@ const App: React.FC = () => {
       id : Date.now().toString(),
       title
     }] )
-  }
+	}
 
   const remuveTodo = (id : string) => {
 		setTodo(prev => prev.filter(el => el.id !== id))
@@ -33,6 +36,7 @@ const App: React.FC = () => {
 	// Создание функционала по переключению экранов
 	let content = (
     <MainScreen
+			openTodo={setTodoId}
       todos={todos}
       addTodo={addTodo}
       remuveTodo={remuveTodo}
@@ -40,7 +44,8 @@ const App: React.FC = () => {
 	);
 	
 	if(todoId){
-		content = <TodoScreen/>
+		const selectedTodo = todos.find(todo => todo.id === todoId)
+		content = <TodoScreen goBack={()=>setTodoId(null)} todo={selectedTodo}/>
 	}
 
   return (

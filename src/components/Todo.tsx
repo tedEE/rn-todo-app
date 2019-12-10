@@ -4,13 +4,14 @@ import {iTodo} from "../../App";
 
 interface iTodoProps {
   todo: iTodo
-  onRemTodo(id : string): void
+  onRemTodo(id : string): void,
+  onOpen(id : string): void
 }
 
-export const Todo: React.FC<iTodoProps> = ({todo, onRemTodo}) => {
+export const Todo: React.FC<iTodoProps> = ({todo, onRemTodo, onOpen}) => {
   return (
     <TouchableOpacity
-      onPress={()=>console.log('Press', todo.id)}
+      onPress={()=>onOpen(todo.id)}
       onLongPress={()=>onRemTodo(todo.id)}>
       <View style={styles.todo}>
         <Text>{todo.title}</Text>

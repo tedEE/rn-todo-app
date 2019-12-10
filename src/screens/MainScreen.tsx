@@ -8,10 +8,11 @@ import {iTodo} from '../../App'
 interface iMainScreenProps{
 	addTodo (title : string) : void,
 	todos : Array<iTodo>,
-	remuveTodo (id : string) : void
+	remuveTodo (id : string) : void,
+	openTodo (id : string) : void
 }
 
-export const MainScreen : React.FC<iMainScreenProps> = ({addTodo, todos, remuveTodo}) => {
+export const MainScreen : React.FC<iMainScreenProps> = ({addTodo, todos, remuveTodo, openTodo}) => {
 	return (
     <View>
       <AddTodo onSubmit={addTodo} />
@@ -19,7 +20,7 @@ export const MainScreen : React.FC<iMainScreenProps> = ({addTodo, todos, remuveT
       <FlatList
         keyExtractor={item => item.id}
         data={todos}
-        renderItem={({ item }) => <Todo todo={item} onRemTodo={remuveTodo} />}
+        renderItem={({ item }) => <Todo todo={item} onRemTodo={remuveTodo} onOpen={openTodo} />}
       />
     </View>
   );
