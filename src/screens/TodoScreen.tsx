@@ -6,15 +6,33 @@ import { THEME } from "../theme";
 import { AppCard } from "../components/ui/AppCard";
 import { EditModal } from "../components/EditModal";
 
-export const TodoScreen: React.FC<{ goBack;todo: iTodo, onRemove(id : string): void}> = ({
+interface PropsTodoScreen{
+	goBack: any,
+	todo : iTodo,
+	onRemove(id : string): void,
+	onSave: any
+}
+
+export const TodoScreen: React.FC<PropsTodoScreen> = ({
   goBack,
 	todo,
-	onRemove
+	onRemove,
+	onSave
 }) => {
+
+	const saveHandler =(title)=>{
+		onSave(todo.id, title)
+		setModal(false)
+	}
 	const [modal, setModal] = useState(false)
+
   return (
     <View>
-			<EditModal visible={modal} onCansal={()=>setModal(false)}></EditModal>
+			<EditModal 
+				onSave={saveHandler}
+				value={todo.title}
+				 visible={modal} 
+				 onCansal={()=>setModal(false)}></EditModal>
       <AppCard style={stylus.card}>
         <Text style={stylus.title}>{todo.title}</Text>
 				<Button

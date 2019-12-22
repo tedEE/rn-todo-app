@@ -12,14 +12,13 @@ export interface iTodo {
   title: string;
 }
 
-// let state = ['string']
 
 const App: React.FC = () => {
   const [todos, setTodo] = useState<Array<iTodo>>([
     { id: "1", title: "Выучить React Native" },
     { id: "2", title: "Написать приложение" }
   ]);
-  const [todoId, setTodoId] = useState("2");
+  const [todoId, setTodoId] = useState("");
 
   const addTodo = (title: string) => {
     setTodo(prev => [
@@ -52,7 +51,16 @@ const App: React.FC = () => {
       { cancelable: false }
     );
     setTodo(prev => prev.filter(el => el.id !== id));
-  };
+	};
+	
+	const updateTodo = (id, title) =>{
+		setTodo(old => old.map(todo=>{
+			if(todo.id === id){
+				todo.title = title
+			}
+			return todo
+		}))
+	}
 
   // Создание функционала по переключению экранов
   let content = (
@@ -66,7 +74,12 @@ const App: React.FC = () => {
 
   if (todoId) {
     const selectedTodo = todos.find(todo => todo.id === todoId);
-    content = <TodoScreen onRemove={remuveTodo} goBack={() => setTodoId(null)} todo={selectedTodo} />;
+		content = <TodoScreen 
+			onRemove={remuveTodo} 
+			goBack={() => setTodoId(null)}
+			todo={selectedTodo}
+			onSave={updateTodo}
+			 />;
   }
 
   return (

@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, Button } from "react-native";
 
 export const AppCard  = (props) =>{
-return <View style={ {...styles.default, ...props.style} }>{props.children}</View>
+	return <View style={ {...styles.default, ...props.style} }>{props.children}</View>
 }
 
 const styles = StyleSheet.create({
