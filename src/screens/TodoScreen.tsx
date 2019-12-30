@@ -1,10 +1,11 @@
 import React,{useState} from "react";
-import { StyleSheet, View, Text, Button, Modal } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 
 import { iTodo } from "../../App";
 import { THEME } from "../theme";
 import { AppCard } from "../components/ui/AppCard";
 import { EditModal } from "../components/EditModal";
+import { AppTextBold } from "../components/ui/AppTextBold";
 
 interface PropsTodoScreen{
 	goBack: any,
@@ -34,7 +35,7 @@ export const TodoScreen: React.FC<PropsTodoScreen> = ({
 				 visible={modal} 
 				 onCansal={()=>setModal(false)}></EditModal>
       <AppCard style={stylus.card}>
-        <Text style={stylus.title}>{todo.title}</Text>
+        <AppTextBold style={stylus.title}>{todo.title}</AppTextBold>
 				<Button
 					title='Ред.'
 					onPress={()=>setModal(true)}

@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import {View, StyleSheet, TextInput, Button, Alert} from "react-native"
-import {iTodo} from "../../App";
-
+import {AntDesign} from '@expo/vector-icons';
 
 interface iProps {
   onSubmit(value : string): void
@@ -29,9 +28,7 @@ export const AddTodo: React.FC<iProps> = ({onSubmit}) => {
                  value={value}
                  placeholder='Введте название дела'
       />
-      <Button
-        onPress={onInputHandler}
-        title={'Добавить'}/>
+			<AntDesign.Button name="pluscircleo" onPress={onInputHandler}>Добавить</AntDesign.Button>
     </View>
   )
 }
@@ -46,7 +43,7 @@ const styles = StyleSheet.create({
     marginBottom : 15
   },
   input: {
-    width: '70%',
+    width: '60%',
     padding: 10,
     borderStyle: 'solid',
     borderBottomWidth: 2,

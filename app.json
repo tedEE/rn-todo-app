@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "Todo Application",
-    "slug": "rn-todo-app",
+    "name": "testproject",
+    "slug": "testproj",
     "privacy": "public",
-    "sdkVersion": "35.0.0",
+    "sdkVersion": "36.0.0",
     "platforms": [
       "ios",
       "android",

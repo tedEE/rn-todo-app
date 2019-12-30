@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, FlatList, Alert } from "react-native";
+import * as Font from 'expo-font'
+import { AppLoading } from 'expo'
 
 import { Navbar } from "./src/components/Navbar";
 import { AddTodo } from "./src/components/AddTodo";
@@ -12,13 +14,31 @@ export interface iTodo {
   title: string;
 }
 
+async function loadApplication() {
+  await Font.loadAsync({
+    'roboto-regular': require('./assets/fonts/Roboto-Regular.ttf'),
+    'roboto-bold': require('./assets/fonts/Roboto-Bold.ttf')
+  })
+}
+
 
 const App: React.FC = () => {
+	const [isReady, setIsReady] = useState(false)
   const [todos, setTodo] = useState<Array<iTodo>>([
     { id: "1", title: "Выучить React Native" },
     { id: "2", title: "Написать приложение" }
   ]);
-  const [todoId, setTodoId] = useState("");
+	const [todoId, setTodoId] = useState(null);
+	
+  if (!isReady) {
+    return (
+      <AppLoading
+        startAsync={loadApplication}
+        onError={err => console.log(err)}
+        onFinish={() => setIsReady(true)}
+      />
+    )
+  }
 
   const addTodo = (title: string) => {
     setTodo(prev => [
